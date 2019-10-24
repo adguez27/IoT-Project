@@ -2,38 +2,28 @@ package com.alexd.patinator;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTabHost;
 
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.alexd.patinator.ui.main.SectionsPagerAdapter;
-
-public class MainActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+public class MainActivity extends FragmentActivity{
+    private FragmentTabHost tabHost;
+    @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        tabHost = findViewById(android.R.id.tabhost);
+        tabHost.setup(this,
+                getSupportFragmentManager(),android.R.id.tabcontent);
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Main Tab"),
+                Tab1.class, null);
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab 2"),
+                Tab2.class, null);
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Tab 3"),
+                Tab3.class,  null);
+        tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("Tab 4"),
+                Tab4.class,  null);
     }
+
 }
+
+
+

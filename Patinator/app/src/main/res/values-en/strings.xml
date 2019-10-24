@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Patinator</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="acerca_de">About us...</string>
+    <string name="esta_aplicaci_n_ha_sido_desarrollada_por_un_grupo_de_estudiantes_como_proyecto_universitario">This application has been developed by a group of students as a college project.</string>
+</resources>
