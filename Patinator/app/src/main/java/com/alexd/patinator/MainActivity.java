@@ -1,7 +1,10 @@
 package com.alexd.patinator;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,7 +13,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTabHost;
 
 public class MainActivity extends AppCompatActivity {
+
     private FragmentTabHost tabHost;
+
+    private int dstSocketPort;
+    private String tipoPatinete;
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -34,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    public void SeleccionPatinete(View view) {
+        Intent i;
+        i = new Intent(this, SeleccionDePatineteActivity.class);
+        startActivity(i);
+    }
+
+
 
 }
 

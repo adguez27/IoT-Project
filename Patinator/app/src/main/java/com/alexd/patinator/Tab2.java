@@ -1,6 +1,8 @@
 package com.alexd.patinator;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,5 +21,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         View view = inflater.inflate(R.layout.tab2, container, false);
         return view;
         }
-        }
+
+
+}
 
