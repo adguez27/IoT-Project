@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name='Practica_2_UART'
