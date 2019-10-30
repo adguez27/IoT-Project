@@ -1,6 +1,7 @@
 package com.alexd.patinator;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -113,22 +114,11 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
 
                         // guardamos el ultimo token proceado
                         tokenanterior = token;
-                        Log.i("token", token);
+                        ((Aplicacion) getApplication()).setPatineteID(token);
+
+                        Log.i("Borja1", token);
                         OutputString.setText(token);
-/*
-                        if (URLUtil.isValidUrl(token)) {
-                            // si es una URL valida abre el navegador
-                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(token));
-                            startActivity(browserIntent);
-                        } else {
-                            // comparte en otras apps
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.putExtra(Intent.EXTRA_TEXT, token);
-                            shareIntent.setType("text/plain");
-                            startActivity(shareIntent);
-                        }
-*/
+
                         new Thread(new Runnable() {
                             public void run() {
                                 try {

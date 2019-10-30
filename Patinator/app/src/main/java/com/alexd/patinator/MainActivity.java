@@ -13,7 +13,12 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTabHost;
 
 public class MainActivity extends AppCompatActivity {
+
     private FragmentTabHost tabHost;
+
+    private int dstSocketPort;
+    private String tipoPatinete;
+
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -38,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     public void SeleccionPatinete(View view) {
         Intent i;
         i = new Intent(this, SeleccionDePatineteActivity.class);
         startActivity(i);
     }
+
+
 
 }
 
