@@ -1,16 +1,21 @@
+#define LED_ROJO 27
+#define PINENCENDIDO 4
+#define PINAPAGADO 0
+#define ECHO_PIN 19
+#define TRIGGER_PIN 18
 /*============================================================================
    SENSOR DISTANCIA
   ============================================================================*/
 
-int distancia(int TriggerPin, int EchoPin) {
+int distancia() {
 
   long duracion, distanciaCm;
-  digitalWrite(TriggerPin, LOW); //nos aseguramos señal baja al principio
+  digitalWrite(TRIGGER_PIN, LOW); //nos aseguramos señal baja al principio
   delayMicroseconds(4);
-  digitalWrite(TriggerPin, HIGH); //generamos pulso de 10us
+  digitalWrite(TRIGGER_PIN, HIGH); //generamos pulso de 10us
   delayMicroseconds(10);
-  digitalWrite(TriggerPin, LOW);
-  duracion = pulseIn(EchoPin, HIGH); //medimos el tiempo del pulso
+  digitalWrite(TRIGGER_PIN, LOW);
+  duracion = pulseIn(ECHO_PIN, HIGH); //medimos el tiempo del pulso
   /*
     Serial.print("duracion: ");
     Serial.println(duracion);
@@ -34,13 +39,13 @@ bool estaCerca(float distanciaCm) {
 
 } // ()
 
-void avisarColision(int T, int E){
-  int dis = distancia(T, E);
+void avisarColision(){
+  int dis = distancia();
   if (estaCerca(dis)) {
-    Serial.println("objeto proximo");
+    digitalWrite(LED_ROJO,HIGH);
     Serial.println(dis);
   } else {
-    Serial.println("ningun objeto proximo uwu");
+    digitalWrite(LED_ROJO,LOW);
     Serial.println(dis);
   } // ifelse()
 
@@ -53,8 +58,8 @@ void avisarColision(int T, int E){
    DORMIR ARDUINO
   ============================================================================*/
 
-void dormir(int pinApagado) {
-  boolean track = digitalRead(pinApagado);
+void dormir() {
+  boolean track = digitalRead(PINAPAGADO);
 
   if (track == LOW) {
     Serial.println("Me he DORMIDO");
