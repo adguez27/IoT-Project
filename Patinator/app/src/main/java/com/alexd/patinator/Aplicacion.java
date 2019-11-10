@@ -8,6 +8,7 @@ public class Aplicacion extends Application {
     private String patineteID;
 
     private int dstPort;
+
     private String dstIPAddress;
     private String tipoPatinete;
 
@@ -22,6 +23,7 @@ public class Aplicacion extends Application {
 
         this.tipoPatinete = tokens[0];
         this.dstPort = Integer.valueOf(tokens[1]);
+      
         this.dstIPAddress = tokens[2];
 
         Log.i("Borja2", this.patineteID);
