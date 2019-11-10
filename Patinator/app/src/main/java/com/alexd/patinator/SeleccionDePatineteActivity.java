@@ -3,6 +3,7 @@ package com.alexd.patinator;
 import android.Manifest;
 import android.app.Activity;
 import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -23,6 +25,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -40,6 +43,7 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
 
     private static final int SOLICITUD_PERMISO_CAMARA = 0;
     private static final int SOLICITUD_PERMISO_INTERNET = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,7 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
             }
         }
     }
+
     public void initQR() {
 
         // creo el detector qr
@@ -197,30 +202,8 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
                 }
             }
 
+
         });
-
-    }
-
-    @Override
-    public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case 100:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
-
-                if (resultCode == RESULT_OK) {
-                    Intent i = new Intent(this, ConnectionActivity.class);
-                    startActivityForResult(i, 200);
-                }
-                break;
-            case 200:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
-                break;
-            default:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
-        }
 
     }
 }

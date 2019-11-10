@@ -27,7 +27,6 @@ public class Aplicacion extends Application {
         this.dstPort = 4445;
         this.dstIPAddress = "192.168.1.252";
 
-
         Log.i("Borja2", this.patineteID);
         Log.i("Borja2", this.tipoPatinete);
         Log.i("Borja2", String.valueOf(this.dstPort));
@@ -42,6 +41,7 @@ public class Aplicacion extends Application {
     public void setDstPort(int dstPort) {
         this.dstPort = dstPort;
     }
+
 
     public String getDstIPAddress() {
         return dstIPAddress;
