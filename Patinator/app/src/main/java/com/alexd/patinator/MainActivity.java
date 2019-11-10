@@ -14,9 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTabHost;
 
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost tabHost;
@@ -32,16 +29,15 @@ public class MainActivity extends AppCompatActivity {
         tabHost = findViewById(android.R.id.tabhost);
         tabHost.setup(this,
                 getSupportFragmentManager(),android.R.id.tabcontent);
-        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("Main Tab"),
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("Tab 2"),
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.map)),
                 Tab2.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("Tab 3"),
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("", getDrawable(R.drawable.qrcode)),
                 Tab3.class,  null);
-        tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("Tab 4"),
+        tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab4.class,  null);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -56,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+        Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
             case 100:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
 
                 if (resultCode == RESULT_OK) {
                     Intent i = new Intent(this, ConnectionActivity.class);
@@ -69,13 +65,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case 200:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
                 break;
             default:
-                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
         }
 
     }
+
 }
 
 

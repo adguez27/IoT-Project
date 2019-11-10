@@ -3,6 +3,7 @@ package com.alexd.patinator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,7 +30,10 @@ public class ConnectionActivity extends AppCompatActivity {
 
         patineteID = ((Aplicacion) getApplication()).getPatineteID();
         dstPort = ((Aplicacion) getApplication()).getDstPort();
-        dstAddress = ((Aplicacion) getApplication()).getDstAddress();
+        dstAddress = ((Aplicacion) getApplication()).getDstIPAddress();
+
+        Log.d("Borja2", String.valueOf(this.dstPort));
+        Log.d("Borja2", this.dstAddress);
 
         udpClientHandler = new UdpClientHandler(this);
 
