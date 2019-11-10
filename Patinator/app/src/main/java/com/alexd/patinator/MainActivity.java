@@ -2,6 +2,8 @@ package com.alexd.patinator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -44,12 +46,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SeleccionPatinete(View view) {
-        Intent i;
-        i = new Intent(this, SeleccionDePatineteActivity.class);
-        startActivity(i);
+        Intent i = new Intent(this, SeleccionDePatineteActivity.class);
+        startActivityForResult(i, 100);
     }
 
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode) {
+            case 100:
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
+
+                if (resultCode == RESULT_OK) {
+                    Intent i = new Intent(this, ConnectionActivity.class);
+                    startActivityForResult(i, 200);
+                }
+                break;
+            case 200:
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
+                break;
+            default:
+                Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
+        }
+
+    }
 
 }
 
