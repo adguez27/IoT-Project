@@ -4,4 +4,6 @@
     <string name="esta_aplicaci_n_ha_sido_desarrollada_por_un_grupo_de_estudiantes_como_proyecto_universitario">This application has been developed by a group of students as a college project.</string>
     <string name="desbloquear">Unlock</string>
     <string name="por_favor_apunta_al_qr">Please focus the QR</string>
+    <string name="configuraci_n">Configuration</string>
+
 </resources>

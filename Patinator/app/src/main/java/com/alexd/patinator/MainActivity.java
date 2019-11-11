@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -36,17 +37,34 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab4.class,  null);
     }
+    //crea el menú
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+//lanza actividad del lector de qr
     public void SeleccionPatinete(View view) {
         Intent i;
         i = new Intent(this, SeleccionDePatineteActivity.class);
         startActivity(i);
+    }
+    public void lanzarAcercaDe(View view) {
+        Intent i = new Intent(this, AcercaDeActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_about_us) {
+            lanzarAcercaDe(null);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
 
