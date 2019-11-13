@@ -3,6 +3,10 @@
 #define PINAPAGADO 0
 #define ECHO_PIN 19
 #define TRIGGER_PIN 18
+#define PIN_GALGA1 12
+#define PIN_GALGA2 13
+#define PIN_GALGA3 14
+#define PIN_GALGA4 15
 /*============================================================================
    SENSOR DISTANCIA
   ============================================================================*/
@@ -39,17 +43,17 @@ bool estaCerca(float distanciaCm) {
 
 } // ()
 
-void avisarColision(){
+void avisarColision() {
   int dis = distancia();
   if (estaCerca(dis)) {
-    digitalWrite(LED_ROJO,HIGH);
+    digitalWrite(LED_ROJO, HIGH);
     Serial.println(dis);
   } else {
-    digitalWrite(LED_ROJO,LOW);
+    digitalWrite(LED_ROJO, LOW);
     Serial.println(dis);
   } // ifelse()
 
-} 
+}
 
 
 
@@ -66,3 +70,22 @@ void dormir() {
     esp_deep_sleep_start();
   } //if()
 } //()
+/*============================================================================
+   CONTROL DE PESO
+  ============================================================================*/
+
+void controldepeso() {
+  int peso1 = map(analogRead(PIN_GALGA1), 0, 4070, 0, 50);
+  int peso2 = map(analogRead(PIN_GALGA2), 0, 4070, 0, 50);
+  int peso3 = map(analogRead(PIN_GALGA3), 0, 4070, 0, 50);
+  int peso4 = map(analogRead(PIN_GALGA4), 0, 4070, 0, 50);
+  int pesoFinal = peso1 + peso2 + peso3 + peso4;
+
+  if (pesoFinal >= 170) {
+    Serial.println("Demasiado peso para el patinete!");
+    digitalWrite(LED_ROJO, HIGH);
+  }
+  else {
+    digitalWrite(LED_ROJO, LOW);
+  }
+}

@@ -22,13 +22,19 @@ void setup() {
   if (contador < 1 ) {
     esp_deep_sleep_start(); //duerme al ESP32 (modo SLEEP)
   }//if()
-
+  //Configuiracion de pines para calculo de peso.
+  pinMode(PIN_GALGA1, INPUT);
+  pinMode(PIN_GALGA2, INPUT);
+  pinMode(PIN_GALGA3, INPUT);
+  pinMode(PIN_GALGA4, INPUT);
 } // ()
 
 void loop() {
   avisarColision();
 
   dormir();
+
+  controldepeso();
 
   delay(500);
 } // ()
