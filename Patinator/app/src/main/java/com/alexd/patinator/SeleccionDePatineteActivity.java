@@ -1,6 +1,8 @@
 package com.alexd.patinator;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,7 +11,9 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -18,6 +22,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -27,7 +32,14 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
     private String token = "";
     private String tokenanterior = "";
+    private boolean connectionNotStarted = true;
+
     private TextView OutputString;
+    public Intent intent;
+    private View vista;
+
+    private static final int SOLICITUD_PERMISO_CAMARA = 0;
+    private static final int SOLICITUD_PERMISO_INTERNET = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +49,52 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
         OutputString = findViewById(R.id.QR);
 
         cameraView = (SurfaceView) findViewById(R.id.camera_view);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            solicitarPermiso(Manifest.permission.CAMERA, "Sin el permiso para utilizar la camara para tomar el QR.",
+                    SOLICITUD_PERMISO_CAMARA, this);
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            solicitarPermiso(Manifest.permission.INTERNET, "Sin el permiso para conectarse a Internet",
+                    SOLICITUD_PERMISO_INTERNET, this);
+        }
         initQR();
     }
 
+    public static void solicitarPermiso(final String permiso, String justificacion, final int requestCode, final Activity actividad) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad, permiso)){
+            new AlertDialog.Builder(actividad)
+                    .setTitle("Solicitud de permiso")
+                    .setMessage(justificacion)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            ActivityCompat.requestPermissions(actividad,
+                                    new String[]{permiso}, requestCode);
+                        }})
+                    .show();
+        } else {
+            ActivityCompat.requestPermissions(actividad,
+                    new String[]{permiso}, requestCode);
+        }
+    }
+
+    @Override public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == SOLICITUD_PERMISO_CAMARA) {
+            if (grantResults.length== 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (requestCode == SOLICITUD_PERMISO_INTERNET) {
+                    if (grantResults.length== 1 &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        //
+                    } else {
+                        Toast.makeText(this, "Sin el permiso, no puedo utilizar el patinete", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Sin el permiso, no puedo tomar el QR", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     public void initQR() {
 
         // creo el detector qr
@@ -116,31 +171,56 @@ public class SeleccionDePatineteActivity extends AppCompatActivity {
                         tokenanterior = token;
                         ((Aplicacion) getApplication()).setPatineteID(token);
 
-                        Log.i("Borja1", token);
+                        Log.d("Borja1", "SeleccionDePatineteActivity " + token);
+                        Log.d("Borja1", "SeleccionDePatineteActivity " + tokenanterior + "----");
+
                         OutputString.setText(token);
 
-                        new Thread(new Runnable() {
-                            public void run() {
-                                try {
-                                    synchronized (this) {
-                                        wait(1000);
-                                        // limpiamos el token
-                                        tokenanterior = "";
-                                    }
-                                } catch (InterruptedException e) {
-                                    // TODO Auto-generated catch block
-                                    Log.e("Error", "Waiting didnt work!!");
-                                    e.printStackTrace();
-                                }
-                            }
-                        }).start();
+                    } else {
 
+                        if (connectionNotStarted) {
+                            ((Aplicacion) getApplication()).setPatineteID(token);
+
+                            connectionNotStarted = !connectionNotStarted;
+
+                            Log.d("Borja1", "SeleccionDePatineteActivity Initiating connections towards " + token);
+
+                            intent = new Intent();
+
+                            setResult(RESULT_OK, intent);
+                            Log.d("Borja1", "SeleccionDePatineteActivity Initiating connections towards " + token);
+
+                            finish();
+
+                        }
                     }
                 }
             }
+
         });
 
     }
 
+    @Override
+    public void onActivityResult (int requestCode, int resultCode, Intent data) {
+        Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+        super.onActivityResult(requestCode, resultCode, data);
 
+        switch (requestCode) {
+            case 100:
+                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+
+                if (resultCode == RESULT_OK) {
+                    Intent i = new Intent(this, ConnectionActivity.class);
+                    startActivityForResult(i, 200);
+                }
+                break;
+            case 200:
+                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+                break;
+            default:
+                Log.d("Borja", "onActivityResult " + Integer.toString(requestCode));
+        }
+
+    }
 }

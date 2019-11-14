@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alexd.patinator">
 
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -13,6 +14,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.    READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Google MAP API key -->
+
 
     <application
         android:name=".Aplicacion"
@@ -58,10 +60,17 @@
         <activity
             android:name=".SeleccionDePatineteActivity"
             android:label="Selección de Patinete"
+
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".MapsActivity"
             android:label="Mapa" />
+
+
+        <activity android:name=".ConnectionActivity"
+            android:label="Connectando con el Patinete"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
     </application>
 
 </manifest>
