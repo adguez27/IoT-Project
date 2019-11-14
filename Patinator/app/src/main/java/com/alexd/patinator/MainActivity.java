@@ -59,16 +59,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-        if (id == R.id.menu_usuario){
-            Intent intent = new Intent(this, UsuarioActivity.class);
-            startActivity(intent);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -78,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.menu_usuario){
+            Intent intent = new Intent(this, UsuarioActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
