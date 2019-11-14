@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "525984414213",
+    "firebase_url": "https://patinator-9f20c.firebaseio.com",
+    "project_id": "patinator-9f20c",
+    "storage_bucket": "patinator-9f20c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525984414213:android:fc0896ece0bd84a35dba6c",
+        "android_client_info": {
+          "package_name": "com.alexd.patinator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525984414213-6pmtmf0ean0s8t9taimbuugvninvc6hv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alexd.patinator",
+            "certificate_hash": "64af2d58ab8fc5657358c305aa3f8b8506d560e5"
+          }
+        },
+        {
+          "client_id": "525984414213-q8u4i44bu594eovij7hovcfgs62nq20g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAXi0eVT9fgkgJw5CAPzySDjbhn1KFjfU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525984414213-q8u4i44bu594eovij7hovcfgs62nq20g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
