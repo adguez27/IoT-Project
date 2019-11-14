@@ -4,9 +4,9 @@
 #define ECHO_PIN 19
 #define TRIGGER_PIN 18
 #define PIN_GALGA1 12
-#define PIN_GALGA2 13
-#define PIN_GALGA3 14
-#define PIN_GALGA4 15
+#define PIN_GALGA2 35
+#define PIN_GALGA3 34
+#define PIN_GALGA4 32
 /*============================================================================
    SENSOR DISTANCIA
   ============================================================================*/
@@ -75,13 +75,14 @@ void dormir() {
   ============================================================================*/
 
 void controldepeso() {
-  int peso1 = map(analogRead(PIN_GALGA1), 0, 4070, 0, 50);
-  int peso2 = map(analogRead(PIN_GALGA2), 0, 4070, 0, 50);
-  int peso3 = map(analogRead(PIN_GALGA3), 0, 4070, 0, 50);
-  int peso4 = map(analogRead(PIN_GALGA4), 0, 4070, 0, 50);
+  int peso1 = map(analogRead(PIN_GALGA1), 0, 4095, 0, 50);
+  int peso2 = map(analogRead(PIN_GALGA2), 0, 4095, 0, 50);
+  int peso3 = map(analogRead(PIN_GALGA3), 0, 4095, 0, 50);
+  int peso4 = map(analogRead(PIN_GALGA4), 0, 4095, 0, 50);
   int pesoFinal = peso1 + peso2 + peso3 + peso4;
+  Serial.println(pesoFinal);
 
-  if (pesoFinal >= 170) {
+  if (pesoFinal >= 30) {
     Serial.println("Demasiado peso para el patinete!");
     digitalWrite(LED_ROJO, HIGH);
   }
