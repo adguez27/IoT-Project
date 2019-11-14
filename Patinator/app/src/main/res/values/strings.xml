@@ -4,4 +4,9 @@
     <string name="esta_aplicaci_n_ha_sido_desarrollada_por_un_grupo_de_estudiantes_como_proyecto_universitario">Esta aplicación ha sido desarrollada por un grupo de estudiantes como proyecto universitario.</string>
     <string name="desbloquear">Desbloquear</string>
     <string name="por_favor_apunta_al_qr">Por favor apunta al QR</string>
+    <string name="configuraci_n">Configuración</string>
+    <string name="buscar_patinete">Buscar</string>
+    <string name="title_activity_maps2">Mapa</string>
+    <string name="con_patinator_no_volver_s_a_llegar_tarde_encuentra_el_patinete_m_s_cercano_pulsando_el_bot_n_y_sorpr_ndete">"Pulsa el botón para encontrar el patinete más cercano."</string>
+    <string name="pulsa_el_bot_n_para_desbloquear_el_patinete">Pulsa el botón para desbloquear el patinete</string>
 </resources>
