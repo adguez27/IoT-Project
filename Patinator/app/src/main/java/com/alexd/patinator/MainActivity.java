@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab4.class,  null);
     }
+
     //crea el menú
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
     public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int id = item.getItemId();
+        if (id == R.id.menu_usuario){
+            Intent intent = new Intent(this, UsuarioActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
