@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
@@ -31,23 +32,41 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(),android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.map)),
-                Tab2.class, null);
+
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("", getDrawable(R.drawable.qrcode)),
                 Tab3.class,  null);
         tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab4.class,  null);
     }
+    //crea el menú
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
+//lanza actividad del lector de qr
     public void SeleccionPatinete(View view) {
         Intent i = new Intent(this, SeleccionDePatineteActivity.class);
+
         startActivityForResult(i, 100);
+
+    }
+    public void lanzarAcercaDe(View view) {
+        Intent i = new Intent(this, AcercaDeActivity.class);
+        startActivity(i);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_about_us) {
+            lanzarAcercaDe(null);
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
