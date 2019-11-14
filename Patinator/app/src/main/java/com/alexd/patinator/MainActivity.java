@@ -30,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager(),android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("",getDrawable(R.drawable.map)),
-                Tab2.class, null);
+
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("", getDrawable(R.drawable.qrcode)),
                 Tab3.class,  null);
         tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
@@ -46,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
     }
 //lanza actividad del lector de qr
     public void SeleccionPatinete(View view) {
-        Intent i;
-        i = new Intent(this, SeleccionDePatineteActivity.class);
+        Intent i = new Intent(this, SeleccionDePatineteActivity.class);
         startActivity(i);
     }
     public void lanzarAcercaDe(View view) {
