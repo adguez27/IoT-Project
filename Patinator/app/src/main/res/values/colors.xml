@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="title_color">#ffffff</color>
     <color name="sec_color">#000000</color>
-
+    <color name="background1">#844BE6</color>
+    <color name="background2">#704DEF</color>
     <color name="orange">#EB6534</color>
 </resources>
