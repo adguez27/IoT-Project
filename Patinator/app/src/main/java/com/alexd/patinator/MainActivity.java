@@ -2,8 +2,6 @@ package com.alexd.patinator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +10,6 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTabHost;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
 
-        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("", getDrawable(R.drawable.qrcode)),
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("", getDrawable(R.drawable.qrcode)),
+                Tab2.class,  null);
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab3.class,  null);
-        tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
-                Tab4.class,  null);
     }
 
     //crea el menú
@@ -66,12 +63,6 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_about_us) {
             lanzarAcercaDe(null);
-            return true;
-        }
-
-        if (id == R.id.menu_usuario){
-            Intent intent = new Intent(this, UsuarioActivity.class);
-            startActivity(intent);
             return true;
         }
 

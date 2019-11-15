@@ -7,33 +7,71 @@
     android:background="@drawable/bck2"
     >
 
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/pulsa_el_bot_n_para_desbloquear_el_patinete"
+        android:id="@+id/nombre"
+        android:layout_width="171dp"
+        android:layout_height="30dp"
+        android:gravity="center"
         android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        android:typeface="serif"
-        app:layout_constraintBottom_toTopOf="@+id/bSeleccionarPatinete"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
+        app:layout_constraintVertical_bias="0.35" />
+
+    <TextView
+        android:id="@+id/correo"
+        android:layout_width="171dp"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.475" />
+
     <Button
-        android:id="@+id/bSeleccionarPatinete"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_cerrar_sesion"
+        android:layout_width="240sp"
         android:layout_height="wrap_content"
         android:background="@drawable/buttonshape"
-        android:onClick="SeleccionPatinete"
-        android:text="@string/desbloquear"
+        android:text="@string/cerrar_sesi_n"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.90999997" />
 
+    <Button
+        android:id="@+id/icono_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:clickable="false"
+        android:drawableEnd="@drawable/person"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintBottom_toBottomOf="@+id/nombre"
+        app:layout_constraintEnd_toStartOf="@+id/nombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nombre" />
+
+    <Button
+        android:id="@+id/icono_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:drawableEnd="@drawable/mail"
+        style="?android:attr/borderlessButtonStyle"
+        app:layout_constraintBottom_toBottomOf="@+id/correo"
+        app:layout_constraintEnd_toStartOf="@+id/correo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/correo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
