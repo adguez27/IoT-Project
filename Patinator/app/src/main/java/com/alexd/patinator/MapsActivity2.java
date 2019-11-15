@@ -42,7 +42,7 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
 
         // Add a marker in Sydney and move the camera
         LatLng UPV = new LatLng(39.4847908, -0.3237898);
-        mMap.addMarker(new MarkerOptions().position(UPV).title("Patinete en la UPV").icon(BitmapDescriptorFactory.fromResource(R.drawable.scooter)));
+                mMap.addMarker(new MarkerOptions().position(UPV).title("Patinete en la playa"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(UPV));
     }
 }
