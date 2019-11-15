@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
 
-        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("", getDrawable(R.drawable.qrcode)),
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("", getDrawable(R.drawable.qrcode)),
+                Tab2.class,  null);
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab3.class,  null);
-        tabHost.addTab(tabHost.newTabSpec("tab4").setIndicator("",getDrawable(R.drawable.profile)),
-                Tab4.class,  null);
     }
 
     //crea el menú
