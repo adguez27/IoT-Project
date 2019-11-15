@@ -22,7 +22,7 @@ public class UsuarioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflador,
                              ViewGroup contenedor, Bundle savedInstanceState) {
 
-        View vista = inflador.inflate(R.layout.tab3,
+        View vista = inflador.inflate(R.layout.tab4,
                 contenedor, false);
 
         Button cerrarSesion =(Button) vista.findViewById(R.id.btn_cerrar_sesion);
