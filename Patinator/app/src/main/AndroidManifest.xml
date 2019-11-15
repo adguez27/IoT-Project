@@ -51,7 +51,11 @@
 
         </activity>
         <activity
-            android:name=".AcercaDeActivity"
+        android:name=".AcercaDeActivity"
+        android:label="Acerca de ..."
+        android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".InfoActivity"
             android:label="Acerca de ..."
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
@@ -59,9 +63,7 @@
             android:label="Selección de Patinete"
 
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-        <activity
-            android:name=".MapsActivity"
-            android:label="Mapa" />
+
 
 
         <activity android:name=".ConnectionActivity"
