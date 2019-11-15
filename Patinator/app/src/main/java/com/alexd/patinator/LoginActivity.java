@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         //inicio de sesion
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
 
-   //     String nombre = usuario.getDisplayName();
+         //String nombre = usuario.getDisplayName();
         /*
         String correo = usuario.getEmail();
         String telefono = usuario.getPhoneNumber();
@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         String proveedor = usuario.getProviderId();
         */
         if (usuario != null) {
-            Toast.makeText(this, "inicia sesión: " +
+            Toast.makeText(this, "Inicia sesión: " +
                     usuario.getDisplayName()+" - "+ usuario.getEmail()+" - "+
                     usuario.getProviders().get(0),Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, MainActivity.class);

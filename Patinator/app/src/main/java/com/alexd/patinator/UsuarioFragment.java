@@ -22,7 +22,7 @@ public class UsuarioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflador,
                              ViewGroup contenedor, Bundle savedInstanceState) {
 
-        View vista = inflador.inflate(R.layout.fragment_usuario,
+        View vista = inflador.inflate(R.layout.tab3,
                 contenedor, false);
 
         Button cerrarSesion =(Button) vista.findViewById(R.id.btn_cerrar_sesion);
@@ -44,6 +44,8 @@ public class UsuarioFragment extends Fragment {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
         TextView nombre = vista.findViewById(R.id.nombre);
         nombre.setText(usuario.getDisplayName());
+        TextView correo = vista.findViewById(R.id.correo);
+        correo.setText(usuario.getEmail());
         return vista;
     }
 }

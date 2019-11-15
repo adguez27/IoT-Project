@@ -1,14 +1,1 @@
-<resources>
-    <string name="app_name">Patinator</string>
-    <string name="acerca_de">Acerca de...</string>
-    <string name="esta_aplicaci_n_ha_sido_desarrollada_por_un_grupo_de_estudiantes_como_proyecto_universitario">Esta aplicación ha sido desarrollada por un grupo de estudiantes como proyecto universitario.</string>
-    <string name="desbloquear">Desbloquear</string>
-    <string name="por_favor_apunta_al_qr">Por favor apunta al QR</string>
-    <string name="configuraci_n">Configuración</string>
-    <string name="buscar_patinete">Buscar</string>
-    <string name="title_activity_maps2">Mapa</string>
-    <string name="con_patinator_no_volver_s_a_llegar_tarde_encuentra_el_patinete_m_s_cercano_pulsando_el_bot_n_y_sorpr_ndete">"Pulsa el botón para encontrar el patinete más cercano."</string>
-    <string name="pulsa_el_bot_n_para_desbloquear_el_patinete">Pulsa el botón para desbloquear el patinete</string>
-    <string name="pago">Pago</string>
-    <string name="tenga_en_cuenta_que_el_uso_los_patinetes_es_un_servicio_de_pago_el_cual_se_le_cobrar_en_su_cuenta">Tenga en cuenta que el uso los patinetes es un servicio de pago, el cual se le cobrará en su cuenta.</string>
-</resources>
+<resources>    <string name="app_name">Patinator</string>    <string name="acerca_de">Acerca de...</string>    <string name="esta_aplicaci_n_ha_sido_desarrollada_por_un_grupo_de_estudiantes_como_proyecto_universitario">Esta aplicación ha sido desarrollada por un grupo de estudiantes como proyecto universitario.</string>    <string name="desbloquear">Desbloquear</string>    <string name="por_favor_apunta_al_qr">Por favor apunta al QR</string>    <string name="configuraci_n">Configuración</string>    <string name="buscar_patinete">Buscar</string>    <string name="title_activity_maps2">Mapa</string>    <string name="con_patinator_no_volver_s_a_llegar_tarde_encuentra_el_patinete_m_s_cercano_pulsando_el_bot_n_y_sorpr_ndete">"Pulsa el botón para encontrar el patinete más cercano."</string>    <string name="pulsa_el_bot_n_para_desbloquear_el_patinete">Pulsa el botón para desbloquear el patinete</string>    <string name="cerrar_sesi_n">Cerrar sesión</string>    <string name="pago">Pago</string>    <string name="tenga_en_cuenta_que_el_uso_los_patinetes_es_un_servicio_de_pago_el_cual_se_le_cobrar_en_su_cuenta">Tenga en cuenta que el uso los patinetes es un servicio de pago, el cual se le cobrará en su cuenta.</string></resources>
