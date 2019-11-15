@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         } else { //si no existe usuario
             startActivityForResult(AuthUI.getInstance()
                             .createSignInIntentBuilder()
+                            .setLogo(R.mipmap.ic_launcher)
                             .setAvailableProviders(
                                     Arrays.asList(
                                             new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
