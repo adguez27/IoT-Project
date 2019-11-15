@@ -9,4 +9,6 @@
     <string name="title_activity_maps2">Map</string>
     <string name="con_patinator_no_volver_s_a_llegar_tarde_encuentra_el_patinete_m_s_cercano_pulsando_el_bot_n_y_sorpr_ndete">"Press the button to locate the closest scooter."</string>
     <string name="pulsa_el_bot_n_para_desbloquear_el_patinete">Press the button to unlock the scooter</string>
+    <string name="pago">Payment</string>
+    <string name="tenga_en_cuenta_que_el_uso_los_patinetes_es_un_servicio_de_pago_el_cual_se_le_cobrar_en_su_cuenta">Bear in mind that using our electric scooters is a paid service, which will be charged in your bank account.</string>
 </resources>
