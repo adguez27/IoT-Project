@@ -3,8 +3,11 @@ package com.example.epsg.udpconnection;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.things.pio.Gpio;
+import com.google.android.things.pio.PeripheralManager;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -13,6 +16,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Date;
 import java.util.Enumeration;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,10 +29,13 @@ public class MainActivity extends AppCompatActivity {
     static final int UdpServerPORT = 4445;
     UdpServerThread udpServerThread;
 
+    GPIOController controller_BCM06;  // GPIO OUT
+    GPIOController controller_BCM21;  // GPIO IN
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+/*
         infoIp = (TextView) findViewById(R.id.infoipText);
         infoPort = (TextView) findViewById(R.id.infoportText);
         textViewState = (TextView)findViewById(R.id.stateText);
@@ -37,8 +44,12 @@ public class MainActivity extends AppCompatActivity {
         infoIp.setText(getIpAddress());
         Log.d("Borja", getIpAddress());
         infoPort.setText(String.valueOf(UdpServerPORT));
+*/
+        controller_BCM06 = new GPIOController("BCM6", Gpio.DIRECTION_OUT_INITIALLY_LOW);  // para GPIO
+        controller_BCM21 = new GPIOController("BCM21", Gpio.DIRECTION_IN);  // para GPIO
     }
 
+    /*
     @Override
     protected void onStart() {
         udpServerThread = new UdpServerThread(UdpServerPORT);
@@ -55,7 +66,17 @@ public class MainActivity extends AppCompatActivity {
 
         super.onStop();
     }
+    */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        controller_BCM06.destroy();  // GPIO
+        controller_BCM21.destroy();  // GPIO
 
+
+    }
+
+    /*
     private void updateState(final String state){
         runOnUiThread(new Runnable() {
             @Override
@@ -146,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+    */
     private String getIpAddress() {
         String ip = "";
         try {
@@ -177,5 +198,19 @@ public class MainActivity extends AppCompatActivity {
 
         return ip;
     }
-}
+    /*
+    // this was created just for testing purposes
+        public void onButton(View view) {
+            controller_BCM06.setON();
+        }
 
+        public void offButton(View view) {
+            controller_BCM06.setOFF();
+        }
+
+        public void switchButton(View view) {
+            controller_BCM06.switchPin();
+        }
+
+    */
+}
