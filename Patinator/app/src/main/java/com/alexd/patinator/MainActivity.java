@@ -2,6 +2,8 @@ package com.alexd.patinator;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTabHost;
 
 public class MainActivity extends AppCompatActivity {
+    private final static String TAG = "Borja_" + MainActivity.class.getSimpleName();
+
 
     private FragmentTabHost tabHost;
 
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 //lanza actividad del lector de qr
     public void SeleccionPatinete(View view) {
         Intent i = new Intent(this, SeleccionDePatineteActivity.class);
@@ -52,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(i, 100);
 
     }
+
     public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
@@ -79,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Borja", "onActivityResult_main " + Integer.toString(requestCode));
 
                 if (resultCode == RESULT_OK) {
-                    Intent i = new Intent(this, ConnectionActivity.class);
-                    startActivityForResult(i, 200);
+//                    Intent i = new Intent(this, ConnectionActivity.class);
+//                    startActivityForResult(i, 200);
+
                 }
                 break;
             case 200:
