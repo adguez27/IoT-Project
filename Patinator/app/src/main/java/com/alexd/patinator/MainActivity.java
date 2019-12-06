@@ -14,7 +14,22 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTabHost;
 
-public class MainActivity extends AppCompatActivity {
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;    //MQTT
+import org.eclipse.paho.client.mqttv3.MqttCallback;        //MQTT
+import org.eclipse.paho.client.mqttv3.MqttClient;              //MQTT
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;   //MQTT
+import org.eclipse.paho.client.mqttv3.MqttException;       //MQTT
+import org.eclipse.paho.client.mqttv3.MqttMessage;         //MQTT
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;  //MQTT
+
+import static com.example.borjacarbo.comun.Mqtt.broker;
+import static com.example.borjacarbo.comun.Mqtt.clientId;
+import static com.example.borjacarbo.comun.Mqtt.qos;
+import static com.example.borjacarbo.comun.Mqtt.topicRoot;
+
+// public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MqttCallback {  //MQTT
+
     private final static String TAG = "Borja_" + MainActivity.class.getSimpleName();
 
 
@@ -23,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private int dstSocketPort;
     private String tipoPatinete;
 
-    @Override protected void onCreate(Bundle savedInstanceState) {
+    MqttClient client;  //MQTT
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -31,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         tabHost = findViewById(android.R.id.tabhost);
         tabHost.setup(this,
-                getSupportFragmentManager(),android.R.id.tabcontent);
+                getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("",getDrawable(R.drawable.home) ),
                 Tab1.class, null);
 
@@ -39,6 +58,29 @@ public class MainActivity extends AppCompatActivity {
                 Tab2.class,  null);
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab3.class,  null);
+
+
+        try {  // Para MQTT
+            Log.i(TAG, "Conectando al broker " + broker);
+            client = new MqttClient(broker, clientId, new MemoryPersistence());
+            MqttConnectOptions connOpts = new MqttConnectOptions();
+            connOpts.setCleanSession(true);
+            connOpts.setKeepAliveInterval(60);
+            connOpts.setWill(topicRoot + "patinator", "ShutDown".getBytes(),
+                    qos, false);
+
+            client.connect(connOpts);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al conectar.", e);
+        }
+
+        try {  // Para MQTT
+            Log.i(TAG, "Suscribiendo a " + topicRoot + "patinete");
+            client.subscribe(topicRoot + "patinete", qos);
+            client.setCallback(this);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al suscribir.", e);
+        }
     }
 
     //crea el menú
@@ -88,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
 //                    Intent i = new Intent(this, ConnectionActivity.class);
 //                    startActivityForResult(i, 200);
 
+                    sendMessage("StartUp");      // per a MQTT
                 }
                 break;
             case 200:
@@ -99,7 +142,76 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-}
+    @Override
+    protected void onDestroy() {   // per a MQTT
+        try {   // MQTT
+            Log.i(TAG, "Desconectado");
+            client.disconnect();
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al desconectar.", e);
+        }
+        super.onDestroy();
+    }
 
 
+    @Override
+    public void connectionLost(Throwable cause) {  // per a MQTT
+        Log.d(TAG, "Conexión perdida");
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {   // per a MQTT
+        String payload = new String(message.getPayload());
+        Log.d(TAG, "Recibiendo: " + topic + "-> " + payload);
+        protocolHandler(payload);
+
+    }
+
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {   // per a MQTT
+        Log.d(TAG, "Entrega completa");
+    }
+
+
+    private void sendMessage(String protocolMsg) {   // per a MQTT
+        try {
+            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinete " + protocolMsg);
+            MqttMessage message = new MqttMessage(protocolMsg.getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot + "patinete", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+    }
+
+    private void sendACKMessage(String protocolMsg) {   // per a MQTT
+        try {
+            Log.i(TAG, "Publicando mensaje: " + protocolMsg);
+            MqttMessage message = new MqttMessage(protocolMsg.getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot + "patinete", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+    }
+
+    private void protocolHandler(String message) {    // per a MQTT
+
+        if (message.equals(new String("StartUpACK"))) {
+            Log.d(TAG, "Recibido: " + "-> " + message);
+        } else if (message.equals(new String("ShutDownACK"))) {
+            Log.d(TAG, "Recibido: " + "-> " + message);
+        } else if (message.equals(new String("SwitchACK"))) {
+            Log.d(TAG, "Recibido: " + "-> " + message);
+        } else if (message.equals(new String("ShutDown"))) {
+            Log.d(TAG, "Recibido: " + "-> " + message);
+        } else {
+                Log.e(TAG, "Error: Message received not according protocol " + message);
+
+            }
+        }
+    }
 
