@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
 //                    startActivityForResult(i, 200);
 
                     sendMessage("StartUp");      // per a MQTT
+                    Log.d("Borja", "Sending StartUp");
                 }
                 break;
             case 200:
@@ -176,11 +177,11 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
 
     private void sendMessage(String protocolMsg) {   // per a MQTT
         try {
-            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinete " + protocolMsg);
+            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinator " + protocolMsg);
             MqttMessage message = new MqttMessage(protocolMsg.getBytes());
             message.setQos(qos);
             message.setRetained(false);
-            client.publish(topicRoot + "patinete", message);
+            client.publish(topicRoot + "patinator", message);
         } catch (MqttException e) {
             Log.e(TAG, "Error al publicar.", e);
         }
@@ -192,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             MqttMessage message = new MqttMessage(protocolMsg.getBytes());
             message.setQos(qos);
             message.setRetained(false);
-            client.publish(topicRoot + "patinete", message);
+            client.publish(topicRoot + "patinator", message);
         } catch (MqttException e) {
             Log.e(TAG, "Error al publicar.", e);
         }
