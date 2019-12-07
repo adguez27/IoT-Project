@@ -14,13 +14,17 @@ public class GPIOController {
     private final String pin_Name;
     private Gpio gpio;
     private Integer gpioStaus;
+    private String function;
+    private MainActivity mainActivity;
     PeripheralManager manager;
 
 
-    public GPIOController(String pin_Name, Integer direction) {
+    public GPIOController(String pin_Name, Integer direction, MainActivity mainActivity, String function) {
         this.pin_Name = pin_Name;
         this.gpioStaus = Gpio.ACTIVE_HIGH;
         this.manager = PeripheralManager.getInstance();
+        this.function = function;
+        this.mainActivity = mainActivity;
         try {
             this.gpio = this.manager.openGpio(pin_Name);
 //            this.gpio.setDirection(Gpio.DIRECTION_OUT_INITIALLY_HIGH);
@@ -40,6 +44,8 @@ public class GPIOController {
         public boolean onGpioEdge(Gpio gpio) {
             try {
                 Log.e(TAG, "cambio botón " + Boolean.toString(gpio.getValue()) + " " + pin_Name);
+                if (function.equals(new String("posicion")) && (gpio.getValue() == false) ){mainActivity.sendMQTTMessage2("tumbado");}
+                else if (function.equals(new String("posicion")) && (gpio.getValue() == true)) {mainActivity.sendMQTTMessage2("depie");}
             } catch (IOException e) {
                 e.printStackTrace();
             }

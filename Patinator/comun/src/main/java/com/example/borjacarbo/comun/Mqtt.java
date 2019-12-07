@@ -7,7 +7,7 @@ public class Mqtt {
 //    public static final String broker = "tcp://iot.eclipse.org:1883";
     public static final String broker = "tcp://broker.hivemq.com:1883";
 //    public static final String broker = "tcp:test.mosquitto.org:1883";
-    public static final String clientId = "Patinete134568789";
+    public static final String clientId = "Patinator134568789";
 
 
 }

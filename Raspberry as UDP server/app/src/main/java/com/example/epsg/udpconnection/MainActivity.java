@@ -45,10 +45,14 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
     static final int UdpServerPORT = 4445;
     UdpServerThread udpServerThread;
 
-    GPIOController controller_BCM06;  // GPIO OUT
-    GPIOController controller_BCM21;  // GPIO IN
+    GPIOController controller_BCM05;  // GPIO OUT Rele1
+    GPIOController controller_BCM06;  // GPIO OUT StartUp
+    GPIOController controller_BCM21;  // GPIO IN  posicion
 
     MqttClient client;  //MQTT
+
+
+    private String bateriaCharge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +70,9 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
         Log.d("Borja", getIpAddress());
         infoPort.setText(String.valueOf(UdpServerPORT));
 */
-        controller_BCM06 = new GPIOController("BCM6", Gpio.DIRECTION_OUT_INITIALLY_LOW);  // para GPIO
-        controller_BCM21 = new GPIOController("BCM21", Gpio.DIRECTION_IN);  // para GPIO
+        controller_BCM05 = new GPIOController("BCM5", Gpio.DIRECTION_OUT_INITIALLY_HIGH, this, "rele1");  // para GPIO
+        controller_BCM06 = new GPIOController("BCM6", Gpio.DIRECTION_OUT_INITIALLY_LOW, this, "StartUp");  // para GPIO
+        controller_BCM21 = new GPIOController("BCM21", Gpio.DIRECTION_IN, this, "posicion");  // para GPIO
 
         try {  // Para MQTT
             Log.i(TAG, "Conectando al broker " + broker);
@@ -84,13 +89,24 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
         }
 
         try {  // Para MQTT
-            Log.i(TAG, "Suscribiendo a " + topicRoot + "patinete");
-            client.subscribe(topicRoot + "patinete", qos);
+            Log.i(TAG, "Suscribiendo a " + topicRoot + "patinator");
+            client.subscribe(topicRoot + "patinator", qos);
             client.setCallback(this);
         } catch (MqttException e) {
             Log.e(TAG, "Error al suscribir.", e);
         }
 
+
+        Log.i(TAG, "Lista de UART disponibles: " + ArduinoUart.disponibles());
+        ArduinoUart uart = new ArduinoUart("UART0", 115200);
+        uart.escribir("H");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Log.w(TAG, "Error en sleep()", e);
+        }
+        bateriaCharge = uart.leer();
+        Log.d(TAG, "Recibido de Arduino: " + bateriaCharge);
 
     }
 
@@ -121,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
             Log.e(TAG, "Error al desconectar.", e);
         }
         super.onDestroy();
+        controller_BCM05.destroy();  // GPIO
         controller_BCM06.destroy();  // GPIO
         controller_BCM21.destroy();  // GPIO
 
@@ -271,11 +288,26 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
             MqttMessage message = new MqttMessage("hola".getBytes());
             message.setQos(qos);
             message.setRetained(false);
-            client.publish(topicRoot + "patinator", message);
+            client.publish(topicRoot + "patinete", message);
         } catch (MqttException e) {
             Log.e(TAG, "Error al publicar.", e);
         }
     }
+
+
+    public void sendMQTTMessage2(String Msg) {
+        try {
+            Log.i(TAG, "Publicando mensaje: " + Msg);
+            MqttMessage message = new MqttMessage(Msg.getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot + "patinete", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
+    }
+
+
 
 
     @Override
@@ -301,11 +333,11 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
 
     private void sendACKMessage(String protocolMsg) {
         try {
-            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinator " + protocolMsg);
+            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinete " + protocolMsg);
             MqttMessage message = new MqttMessage(protocolMsg.getBytes());
             message.setQos(qos);
             message.setRetained(false);
-            client.publish(topicRoot + "patinator", message);
+            client.publish(topicRoot + "patinete", message);
         } catch (MqttException e) {
             Log.e(TAG, "Error al publicar.", e);
         }
@@ -320,6 +352,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {
             sendACKMessage(message + "ACK");
         } else if (message.equals(new String("ShutDown"))) {
             controller_BCM06.setOFF();
+            controller_BCM05.setOFF();
             sendACKMessage(message + "ACK");
         } else if (message.equals(new String("Switch"))) {
             controller_BCM06.switchPin();
