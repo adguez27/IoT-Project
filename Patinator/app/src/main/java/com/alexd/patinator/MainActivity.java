@@ -1,5 +1,8 @@
 package com.alexd.patinator;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +15,10 @@ import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTabHost;
+
+import com.google.android.libraries.places.api.Places;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;    //MQTT
 import org.eclipse.paho.client.mqttv3.MqttCallback;        //MQTT
@@ -44,7 +50,9 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), "@string/google_api_key");
+        }
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -82,7 +90,25 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             Log.e(TAG, "Error al suscribir.", e);
         }
     }
-
+    //funcion para solicitar permisos
+    public static void solicitarPermiso(final String permiso, String
+            justificacion, final int requestCode, final Activity actividad) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
+                permiso)){
+            new AlertDialog.Builder(actividad)
+                    .setTitle("Solicitud de permiso")
+                    .setMessage(justificacion)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            ActivityCompat.requestPermissions(actividad,
+                                    new String[]{permiso}, requestCode);
+                        }})
+                    .show();
+        } else {
+            ActivityCompat.requestPermissions(actividad,
+                    new String[]{permiso}, requestCode);
+        }
+    }
     //crea el menú
 
     @Override

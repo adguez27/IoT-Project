@@ -37,7 +37,7 @@
 
     <Button
         android:id="@+id/info"
-        android:layout_width="75sp"
+        android:layout_width="100sp"
         android:layout_height="45sp"
         android:background="@drawable/buttonshape"
         android:drawableStart="@drawable/info"
