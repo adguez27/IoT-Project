@@ -1,14 +1,10 @@
 #include "HX711.h"
 #include "soc/rtc.h";  //Libreria para poder bajar la frecuencia
-
-#define LED_ROJO 27
-#define PINENCENDIDO 4
-#define PINAPAGADO 0
-#define ECHO_PIN 19
-#define TRIGGER_PIN 18
+#define PINDORMIR 26
+#define ECHO_PIN 36
+#define TRIGGER_PIN 35
 #define DOUT  2 //peso
 #define CLK  5 //peso
-
 HX711 balanza;
 
 /*============================================================================
@@ -50,10 +46,10 @@ bool estaCerca(float distanciaCm) {
 void avisarColision() {
   int dis = distancia();
   if (estaCerca(dis)) {
-    digitalWrite(LED_ROJO, HIGH);
+    M5.Lcd.println("Objeto proximo!");
+    
     Serial.println(dis);
   } else {
-    digitalWrite(LED_ROJO, LOW);
     Serial.println(dis);
   } // ifelse()
 
@@ -67,10 +63,9 @@ void avisarColision() {
   ============================================================================*/
 
 void dormir() {
-  boolean track = digitalRead(PINAPAGADO);
+  boolean track = digitalRead(PINDORMIR);
 
   if (track == LOW) {
-    Serial.println("Me he DORMIDO");
     esp_deep_sleep_start();
   } //if()
 } //()
@@ -85,10 +80,7 @@ void controldepeso() {
   Serial.println(" kg");
 
   if (pesoFinal >= 20) {
-    Serial.println("Demasiado peso para el patinete!");
-    digitalWrite(LED_ROJO, HIGH);
+    M5.Lcd.println("Demasiado peso para el patinete.");
   }
-  else {
-    digitalWrite(LED_ROJO, LOW);
-  }
+ 
 }
