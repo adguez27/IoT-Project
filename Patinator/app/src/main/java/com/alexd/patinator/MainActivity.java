@@ -12,6 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTabHost;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private FragmentTabHost tabHost;

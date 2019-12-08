@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         login();
     }
-    private void login() {
+    public void login() {
         //inicio de sesion
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -36,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         String uid = usuario.getUid();
         String proveedor = usuario.getProviderId();
         */
+
+        Uri urlFoto = usuario.getPhotoUrl();
+
         if (usuario != null) {
             Toast.makeText(this, "Inicia sesión: " +
                     usuario.getDisplayName()+" - "+ usuario.getEmail()+" - "+
@@ -68,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                             .setIsSmartLockEnabled(false)
                             .build(),
                     RC_SIGN_IN);
+
         }
     }
 
