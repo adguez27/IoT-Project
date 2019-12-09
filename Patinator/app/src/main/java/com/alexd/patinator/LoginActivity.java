@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         String proveedor = usuario.getProviderId();
         */
 
-        Uri urlFoto = usuario.getPhotoUrl();
+        //Uri urlFoto = usuario.getPhotoUrl();
 
         if (usuario != null) {
             Toast.makeText(this, "Inicia sesión: " +
