@@ -53,6 +53,31 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         });
 
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+
+        RequestQueue colaPeticiones = Volley.newRequestQueue(getActivity()
+                .getApplicationContext());
+
+        ImageLoader lectorImagenes = new ImageLoader(colaPeticiones,
+                new ImageLoader.ImageCache() {
+                        private final LruCache<String, Bitmap> cache =
+                                new LruCache<>(10);
+                        public void putBitmap(String url, Bitmap bitmap) {
+                                cache.put(url, bitmap);
+                        }
+                        public Bitmap getBitmap(String url) {
+                                return cache.get(url);
+                        }
+                });
+
+        // Foto de usuario
+        Uri urlImagen = usuario.getPhotoUrl();
+        if (urlImagen != null) {
+                NetworkImageView fotoUsuario = (NetworkImageView)
+                        view.findViewById(R.id.imagen);
+                fotoUsuario.setImageUrl(String.valueOf(urlImagen), lectorImagenes);
+        }
+
+
         TextView nombre = view.findViewById(R.id.nombre);
         nombre.setText(usuario.getDisplayName().toString());
         TextView correo = view.findViewById(R.id.correo);
