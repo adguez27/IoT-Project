@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':comun', ':comun', ':comun', ':comun'
 rootProject.name='Patinator'

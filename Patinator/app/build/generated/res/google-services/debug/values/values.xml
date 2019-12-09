@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">525984414213-q8u4i44bu594eovij7hovcfgs62nq20g.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://patinator-9f20c.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">525984414213</string>
+    <string name="google_api_key" translatable="false">AIzaSyBAXi0eVT9fgkgJw5CAPzySDjbhn1KFjfU</string>
+    <string name="google_app_id" translatable="false">1:525984414213:android:4b5c3802adda28185dba6c</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBAXi0eVT9fgkgJw5CAPzySDjbhn1KFjfU</string>
+    <string name="google_storage_bucket" translatable="false">patinator-9f20c.appspot.com</string>
+    <string name="project_id" translatable="false">patinator-9f20c</string>
+</resources>
