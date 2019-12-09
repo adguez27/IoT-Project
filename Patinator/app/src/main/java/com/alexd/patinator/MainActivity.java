@@ -30,6 +30,11 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentTabHost;
 
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+
+
 import com.google.android.libraries.places.api.Places;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;    //MQTT
@@ -287,4 +292,3 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             }
         }
     }
-
