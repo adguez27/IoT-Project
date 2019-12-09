@@ -2,20 +2,32 @@ package com.alexd.patinator;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ViewUtils;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentTabHost;
 
 import com.google.android.libraries.places.api.Places;
@@ -37,7 +49,9 @@ import static com.example.borjacarbo.comun.Mqtt.topicRoot;
 public class MainActivity extends AppCompatActivity implements MqttCallback {  //MQTT
 
     private final static String TAG = "Borja_" + MainActivity.class.getSimpleName();
-
+    private NotificationManager notificationManager;
+    static final String CANAL_ID = "mi_canal";
+    static final int NOTIFICACION_ID = 1;
 
     private FragmentTabHost tabHost;
 
@@ -90,25 +104,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             Log.e(TAG, "Error al suscribir.", e);
         }
     }
-    //funcion para solicitar permisos
-    public static void solicitarPermiso(final String permiso, String
-            justificacion, final int requestCode, final Activity actividad) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(actividad,
-                permiso)){
-            new AlertDialog.Builder(actividad)
-                    .setTitle("Solicitud de permiso")
-                    .setMessage(justificacion)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            ActivityCompat.requestPermissions(actividad,
-                                    new String[]{permiso}, requestCode);
-                        }})
-                    .show();
-        } else {
-            ActivityCompat.requestPermissions(actividad,
-                    new String[]{permiso}, requestCode);
-        }
-    }
+
     //crea el menú
 
     @Override
@@ -155,7 +151,38 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
                 if (resultCode == RESULT_OK) {
 //                    Intent i = new Intent(this, ConnectionActivity.class);
 //                    startActivityForResult(i, 200);
+                    notificationManager =(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        NotificationChannel notificationChannel = new NotificationChannel(
+                                CANAL_ID, "Mis Notificaciones",
+                                NotificationManager.IMPORTANCE_DEFAULT);
+                        notificationChannel.setDescription("Descripcion del canal");
+                        notificationManager.createNotificationChannel(notificationChannel);
+                    }
+                    NotificationCompat.Builder notificacion =
+                            new NotificationCompat.Builder(MainActivity.this, CANAL_ID)
+                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setContentTitle("Patinete en marcha")
+                                    .setContentText("Recuerde bloquearlo al llegar a su destino.")
+                                    .setWhen(System.currentTimeMillis() + 1000 * 60 * 60)
+                                    .setLights(Color.RED, 3000, 1000);
+                    PendingIntent intencionPendiente = PendingIntent.getActivity(
+                            this, 0, new Intent(this, Tab2.class), 0);
+                    notificacion.setContentIntent(intencionPendiente);
+                    notificationManager.notify(NOTIFICACION_ID, notificacion.build());
+                   final Button button =  findViewById(R.id.bSeleccionarPatinete);
+                    button.setText("Bloquear");
+                    Button b2 = findViewById(R.id.info);
+                    b2.setVisibility(View.GONE);
+                    final TextView text = findViewById(R.id.tab2txt);
+                    text.setText("Pulsa el botón para bloquear el patinete");
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            block();
 
+                        }
+                    });
                     sendMessage("StartUp");      // per a MQTT
                     Log.d("Borja", "Sending StartUp");
                 }
@@ -189,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {   // per a MQTT
         String payload = new String(message.getPayload());
+        Toast.makeText(this, "Recibiendo: " + topic + "-> " + payload, Toast.LENGTH_LONG).show();
         Log.d(TAG, "Recibiendo: " + topic + "-> " + payload);
         protocolHandler(payload);
 
@@ -212,7 +240,22 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             Log.e(TAG, "Error al publicar.", e);
         }
     }
-
+    public void block(){
+        notificationManager.cancel(NOTIFICACION_ID);
+        Button button =  findViewById(R.id.bSeleccionarPatinete);
+        button.setText("Desbloquear");
+        TextView text = findViewById(R.id.tab2txt);
+        text.setText("Pulsa el botón para desbloquear el patinete");
+        Button b2 = findViewById(R.id.info);
+        b2.setVisibility(View.VISIBLE);
+           sendMessage("ShutDown");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SeleccionPatinete(view);
+            }
+        });
+    }
     private void sendACKMessage(String protocolMsg) {   // per a MQTT
         try {
             Log.i(TAG, "Publicando mensaje: " + protocolMsg);
@@ -228,14 +271,17 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
     private void protocolHandler(String message) {    // per a MQTT
 
         if (message.equals(new String("StartUpACK"))) {
+            Toast.makeText(this, "Desbloqueao", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Recibido: " + "-> " + message);
         } else if (message.equals(new String("ShutDownACK"))) {
+            Toast.makeText(this, "Bloqueao", Toast.LENGTH_LONG).show();
             Log.d(TAG, "Recibido: " + "-> " + message);
         } else if (message.equals(new String("SwitchACK"))) {
             Log.d(TAG, "Recibido: " + "-> " + message);
         } else if (message.equals(new String("ShutDown"))) {
             Log.d(TAG, "Recibido: " + "-> " + message);
         } else {
+            Toast.makeText(this, "Error: Message received not according protocol " + message, Toast.LENGTH_LONG).show();
                 Log.e(TAG, "Error: Message received not according protocol " + message);
 
             }
