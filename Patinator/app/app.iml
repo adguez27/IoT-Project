@@ -183,5 +183,11 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:15.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.volley:volley:1.1.1@aar" level="project" />
     <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
+    <orderEntry type="module" module-name="comun" />
   </component>
 </module>

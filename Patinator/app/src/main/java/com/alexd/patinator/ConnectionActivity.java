@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ConnectionActivity extends AppCompatActivity {
 
     TextView textViewState, textViewRx, textViewDevice;
-    EditText editTextDevice;
+
 
     private String patineteID;
     private int dstPort;

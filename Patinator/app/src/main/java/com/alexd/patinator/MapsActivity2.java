@@ -4,23 +4,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -34,7 +27,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.List;
 
 public class MapsActivity2 extends AppCompatActivity
@@ -115,13 +107,12 @@ int times = 1;
 
                 //Location to move the camera
                 LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-
                 //move map camera once
                 if(times==1) {
                     mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
                     times++;
                 }
+
                 //Place scooter location marker
                 String title = "Patinete disponible";
                 LatLng latLng2 = new LatLng(38.9969486,-0.1709972);

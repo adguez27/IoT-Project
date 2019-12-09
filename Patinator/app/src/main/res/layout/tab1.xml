@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.42000002" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tab2txt"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:text="@string/con_patinator_no_volver_s_a_llegar_tarde_encuentra_el_patinete_m_s_cercano_pulsando_el_bot_n_y_sorpr_ndete"
