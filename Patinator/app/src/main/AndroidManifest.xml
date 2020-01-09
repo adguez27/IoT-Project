@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.alexd.patinator">
-
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -13,8 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.    READ_GSERVICES" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Google MAP API key -->
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".Aplicacion"
@@ -22,18 +19,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-
         android:supportsRtl="true"
         android:theme="@style/ToolbarTheme">
+        <activity android:name=".ChatActivity"></activity>
 
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -43,44 +32,38 @@
 
         <activity
             android:name=".MapsActivity2"
-            android:label="@string/title_activity_maps2"></activity>
+            android:label="@string/title_activity_maps2" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/ToolbarTheme">
-
-        </activity>
+            android:theme="@style/ToolbarTheme"></activity>
         <activity
-        android:name=".AcercaDeActivity"
-        android:label="Acerca de ..."
-        android:theme="@style/Theme.AppCompat.Light.Dialog" />
+            android:name=".AcercaDeActivity"
+            android:label="Acerca de ..."
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity
             android:name=".InfoActivity"
             android:label="Acerca de ..."
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
+
         <activity
             android:name=".SeleccionDePatineteActivity"
             android:label="Selección de Patinete"
-
             android:theme="@style/Theme.AppCompat.Light.Dialog" />
-
-
-
-        <activity android:name=".ConnectionActivity"
+        <activity
+            android:name=".ConnectionActivity"
             android:label="Connectando con el Patinete"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
-
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".UsuarioActivity"
+        <activity
+            android:name=".UsuarioActivity"
             android:label="Información sobre el usuario" />
-
-
     </application>
 
 </manifest>

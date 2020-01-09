@@ -131,7 +131,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
     }
-
+    public void lanzarChat(View view) {
+        Intent i = new Intent(this, ChatActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,7 +143,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             lanzarAcercaDe(null);
             return true;
         }
-
+        if (id == R.id.Soporte) {
+            lanzarChat(null);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.firebase.ui.auth.ResultCodes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 123;
@@ -41,8 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (usuario != null) {
             Toast.makeText(this, "Inicia sesión: " +
-                    usuario.getDisplayName()+" - "+ usuario.getEmail()+" - "+
-                    usuario.getProviders().get(0),Toast.LENGTH_LONG).show();
+                    usuario.getDisplayName()+" - "+ usuario.getEmail(),Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, MainActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_NEW_TASK
@@ -58,19 +57,32 @@ public class LoginActivity extends AppCompatActivity {
              */
 
             startActivity(i);
-        } else { //si no existe usuario
-            startActivityForResult(AuthUI.getInstance()
+        } else {
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.EmailBuilder().build(),
+                    new AuthUI.IdpConfig.PhoneBuilder().build(),
+                    new AuthUI.IdpConfig.GoogleBuilder().build()
+                    );
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setLogo(R.mipmap.ic_launcher)
+                            .setAvailableProviders(providers)
+                            .build(),
+                    RC_SIGN_IN);
+            //si no existe usuario
+           /* startActivityForResult(AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setLogo(R.mipmap.ic_launcher)
                             .setAvailableProviders(
                                     Arrays.asList(
-                                            new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build())
+                                            new AuthUI.IdpConfig.EmailBuilder().build(),
+                                            new AuthUI.IdpConfig.GoogleBuilder().build(),
+                                            new AuthUI.IdpConfig.PhoneBuilder().build())
                             ).setAllowNewEmailAccounts(true)
                             .setIsSmartLockEnabled(false)
                             .build(),
-                    RC_SIGN_IN);
+                    RC_SIGN_IN);*/
 
         }
     }
@@ -79,19 +91,20 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode,Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            if (resultCode == ResultCodes.OK) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (resultCode == RESULT_OK) {
                 login();
                 finish();
             } else {
-                IdpResponse response = IdpResponse.fromResultIntent(data);
+
                 if (response == null) {
                     Toast.makeText(this,"Cancelado",Toast.LENGTH_LONG).show();
                     return;
-                }else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                }else if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
                     Toast.makeText(this,"Sin conexión a Internet",
                             Toast.LENGTH_LONG).show();
                     return;
-                } else if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
                     Toast.makeText(this,"Error desconocido",
                             Toast.LENGTH_LONG).show();
                     return;
