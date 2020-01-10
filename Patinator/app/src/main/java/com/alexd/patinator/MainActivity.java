@@ -137,7 +137,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);
     }
-
+    public void lanzarChat(View view) {
+        Intent i = new Intent(this, ChatActivity.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -146,7 +149,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             lanzarAcercaDe(null);
             return true;
         }
-
+        if (id == R.id.Soporte) {
+            lanzarChat(null);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -190,7 +196,26 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            block();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert);
+                            builder.setCancelable(true);
+                            builder.setTitle("Finalizar trayecto");
+                            builder.setMessage("¿Está seguro que quiere bloquear el patinete?");
+                            builder.setPositiveButton("Confirmar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            block();
+                                        }
+                                    });
+                            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+
+                          //  AlertDialog dialog = builder.create();
+                            builder.show();
+
 
                         }
                     });

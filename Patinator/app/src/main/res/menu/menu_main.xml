@@ -5,9 +5,14 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_about_us"
+
+        android:orderInCategory="1"
         android:title="@string/acerca_de"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:orderInCategory="5"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/Soporte"
+        android:orderInCategory="2"
+        android:title="@string/soporte"
+        app:showAsAction="never" />
 
 </menu>
