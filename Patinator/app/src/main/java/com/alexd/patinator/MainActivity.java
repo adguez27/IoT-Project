@@ -190,7 +190,26 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            block();
+                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert);
+                            builder.setCancelable(true);
+                            builder.setTitle("Finalizar trayecto");
+                            builder.setMessage("¿Está seguro que quiere bloquear el patinete?");
+                            builder.setPositiveButton("Confirmar",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            block();
+                                        }
+                                    });
+                            builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+
+                          //  AlertDialog dialog = builder.create();
+                            builder.show();
+
 
                         }
                     });
