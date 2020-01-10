@@ -127,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
 
     }
 
+    public void lanzarInfoPagina(View view){
+        Intent i = new Intent(this, InfoPaginaActivity.class);
+
+        startActivityForResult(i, 100);
+    }
+
     public void lanzarAcercaDe(View view) {
         Intent i = new Intent(this, AcercaDeActivity.class);
         startActivity(i);

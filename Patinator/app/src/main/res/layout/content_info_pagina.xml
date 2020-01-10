@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nestedScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".InfoPaginaActivity"
+    tools:showIn="@layout/info_pagina">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-159dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bck2"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/introText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="16sp"
+                android:layout_marginRight="16sp"
+                android:text="@string/info_patinetes"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/pack_patinete"
+                android:layout_width="350dp"
+                android:layout_height="145dp"
+                android:layout_marginTop="32sp"
+                android:layout_marginBottom="16sp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/patinete1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/iwatroad_r9"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iWatRoad_R9_image"
+                    android:layout_width="174dp"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/patinete_imagen"
+                    app:srcCompat="@drawable/scooter" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/infoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="16sp"
+                android:layout_marginRight="16sp"
+                android:text="@string/infoText"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/dual_image"
+                android:layout_width="350dp"
+                android:layout_height="145dp"
+                android:layout_marginTop="16sp"
+                android:layout_marginBottom="16sp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/patinete_pe" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:srcCompat="@drawable/rueda_d" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="352dp"
+                android:layout_height="154dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/patinete2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/xiaomi_m365"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/xiaomi_scooter"
+                    android:layout_width="174dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/patinete_xiaomi" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/infoText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="16sp"
+                android:layout_marginRight="16sp"
+                android:layout_marginBottom="16sp"
+                android:text="@string/infoText2"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/infoText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="16sp"
+                android:layout_marginRight="16sp"
+                android:layout_marginBottom="16sp"
+                android:text="@string/infoText3"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
