@@ -10,9 +10,16 @@
         android:title="@string/acerca_de"
         app:showAsAction="never" />
     <item
-        android:id="@+id/Soporte"
+
+        android:id="@+id/Ajustes"
         android:orderInCategory="2"
+        android:title="@string/ajustes"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/Soporte"
+        android:orderInCategory="3"
         android:title="@string/soporte"
         app:showAsAction="never" />
+
 
 </menu>
