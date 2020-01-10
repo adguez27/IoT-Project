@@ -144,6 +144,17 @@
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
+            <Button
+                android:id="@+id/btn_llamar"
+                android:layout_width="240sp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16sp"
+                android:background="@drawable/buttonshape"
+                android:onClick="llamarTelefono"
+                android:text="@string/contacto_con_patinator"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

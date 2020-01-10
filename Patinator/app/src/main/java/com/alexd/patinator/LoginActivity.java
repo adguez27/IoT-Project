@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                     AuthUI.getInstance()
                             .createSignInIntentBuilder()
                             .setLogo(R.mipmap.ic_launcher)
+                            .setTheme(R.style.ToolbarTheme)
                             .setAvailableProviders(providers)
                             .build(),
                     RC_SIGN_IN);
