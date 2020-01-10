@@ -150,6 +150,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         Intent i = new Intent(this, ChatActivity.class);
         startActivity(i);
     }
+    public void lanzarAjustes(View view) {
+        Intent i = new Intent(this, Preferencias.class);
+        startActivity(i);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -160,6 +164,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         }
         if (id == R.id.Soporte) {
             lanzarChat(null);
+            return true;
+        }
+        if (id == R.id.Ajustes) {
+            lanzarAjustes(null);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -299,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
             Log.e(TAG, "Error al publicar.", e);
         }
     }
+
     public void block(){
         notificationManager.cancel(NOTIFICACION_ID);
         Button button =  findViewById(R.id.bSeleccionarPatinete);
