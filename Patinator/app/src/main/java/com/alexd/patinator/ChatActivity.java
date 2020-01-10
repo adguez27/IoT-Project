@@ -79,8 +79,8 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                // adapter.addMensaje(new MensajeRecibir(txtMensaje.getText().toString(),nombre.getText().toString(),fotoPerfilCadena,"1", System.currentTimeMillis()))
-              //  databaseReference.push().setValue(new MensajeEnviar(txtMensaje.getText().toString(),nombre.getText().toString(),fotoPerfilCadena,"1", ServerValue.TIMESTAMP));
-                databaseReference.push().setValue(new MensajeEnviar(txtMensaje.getText().toString(),usuario.getDisplayName().toString(),fotoPerfilCadena,"1", ServerValue.TIMESTAMP));
+                databaseReference.push().setValue(new MensajeEnviar(txtMensaje.getText().toString(),nombre.getText().toString(),fotoPerfilCadena,"1", ServerValue.TIMESTAMP));
+               // databaseReference.push().setValue(new MensajeEnviar(txtMensaje.getText().toString(),usuario.getDisplayName().toString(),fotoPerfilCadena,"1", ServerValue.TIMESTAMP));
                 txtMensaje.setText("");
             }
         });

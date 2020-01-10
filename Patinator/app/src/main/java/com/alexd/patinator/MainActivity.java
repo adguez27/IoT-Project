@@ -293,7 +293,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         text.setText("Pulsa el botón para desbloquear el patinete");
         Button b2 = findViewById(R.id.info);
         b2.setVisibility(View.VISIBLE);
-           sendMessage("ShutDown");
+        try {
+            Log.i(TAG, "Publicando mensaje: " + topicRoot + "patinator " + "ShutDown");
+            MqttMessage message = new MqttMessage("ShutDown".getBytes());
+            message.setQos(qos);
+            message.setRetained(false);
+            client.publish(topicRoot + "patinator", message);
+        } catch (MqttException e) {
+            Log.e(TAG, "Error al publicar.", e);
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
