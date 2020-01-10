@@ -13,12 +13,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,10 +47,15 @@ import org.eclipse.paho.client.mqttv3.MqttException;       //MQTT
 import org.eclipse.paho.client.mqttv3.MqttMessage;         //MQTT
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;  //MQTT
 
+import static android.os.SystemClock.elapsedRealtime;
 import static com.example.borjacarbo.comun.Mqtt.broker;
 import static com.example.borjacarbo.comun.Mqtt.clientId;
 import static com.example.borjacarbo.comun.Mqtt.qos;
 import static com.example.borjacarbo.comun.Mqtt.topicRoot;
+
+import android.os.SystemClock;
+
+import android.widget.Chronometer;
 
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends AppCompatActivity implements MqttCallback {  //MQTT
@@ -65,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
 
     MqttClient client;  //MQTT
 
+    //Chronometer crono;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
         tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("",getDrawable(R.drawable.profile)),
                 Tab3.class,  null);
 
+        //crono = (Chronometer) findViewById(R.id.simpleChronometer);
 
         try {  // Para MQTT
             Log.i(TAG, "Conectando al broker " + broker);
@@ -195,12 +204,26 @@ public class MainActivity extends AppCompatActivity implements MqttCallback {  /
                             this, 0, new Intent(this, Tab2.class), 0);
                     notificacion.setContentIntent(intencionPendiente);
                     notificationManager.notify(NOTIFICACION_ID, notificacion.build());
+
+                    Toast toast = Toast.makeText(this, R.string.desbloqueo, Toast.LENGTH_LONG);
+                    View view = toast.getView();
+                    view.setBackgroundResource(R.drawable.toast_bck);
+                    //TextView text = (TextView) view.findViewById(android.R.id.message);
+                    /*Here you can do anything with above textview like text.setTextColor(Color.parseColor("#000000"));*/
+                    toast.show();
+
+                    //crono.setBase(SystemClock.elapsedRealtime());
+                    //crono.setVisibility(View.VISIBLE);
+                    //crono.start();
+
+
                    final Button button =  findViewById(R.id.bSeleccionarPatinete);
                     button.setText("Bloquear");
                     Button b2 = findViewById(R.id.info);
                     b2.setVisibility(View.GONE);
                     final TextView text = findViewById(R.id.tab2txt);
                     text.setText("Pulsa el botón para bloquear el patinete");
+
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
